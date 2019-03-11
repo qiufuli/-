@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //  优先级：函数提升 > 变量提升
+    console.log(xx) // ƒ xx() {}
+    function xx() { }
+    var xx = 1
+
+
+    var a = 1
+    let b = 1
+    // let b let是声明变量的 在相同作用域下再次声明同一个变量
+    const c = 1
+    //  c =43 const是声明常量的 任何作用域下不能再次给常量赋值
+    //首先在全局作用域下使用 let 和 const 声明变量，变量并不会被挂载到 window 上，这一点就和 var 声明有了区别。
+    console.log(window.b) // undefined
+    console.log(window.c) // undefined
+
+    function test() {
+      console.log(a)
+      let a //let const  声明之前不能调用 否则是 a is not defined
+      //c = 12   也会报错 修改了const声明的常量
+    }
+    test()
+    // 总结
+    /**
+      1.let是声明变量的 在相同作用域下再次声明同一个变量
+      2.const是声明常量的 任何作用域下不能再次给常量赋值
+      3.全局作用域下使用 let 和 const 声明变量，变量并不会被挂载到 window 上，这一点就和 var 声明有了区别
+      4.let const  声明之前不能调用 否则是 a is not defined    
+      5.let const 块级作用域 var没有 例如 循环下的闭包 可以用 let i;i<10; i++ 来代替闭包
+      */
+  </script>
+</body>
+
+</html>

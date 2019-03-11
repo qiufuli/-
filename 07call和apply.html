@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /**
+    它们各自的定义：
+
+apply：调用一个对象(得是对象)的一个方法，用另一个对象替换当前对象。例如：B.apply(A, arguments);即A对象应用B对象的方法。
+
+call：调用一个对象(得是对象)的一个方法，用另一个对象替换当前对象。例如：B.call(A, args1,args2);即A对象调用B对象的方法。
+    
+    */
+    var a = [1, 2, 3];
+    a.push.apply(a, [4, 5, 6]);
+    console.log('a', a);
+
+    function sub(a, b) {
+      return a - b
+    }
+    function add(a, b) {
+      return a + b;
+    }
+    add.call(sub);
+    console.log('sub', sub(3, 3));
+    console.log('sub', add.call(sub, 3, 3));
+    
+    function xxx (){
+      console.log(this)
+    }
+    xxx.call(null) // window
+    // 实现继承
+    function Animal(name) {
+      this.name = name;
+      this.showName = function () {
+        console.log(this.name);
+      }
+    }
+
+    function Cat(name) {
+      Animal.apply(this, [name]);
+    }
+
+    var cat = new Cat("咕咕");
+    cat.showName();
+
+  </script>
+</body>
+
+</html>

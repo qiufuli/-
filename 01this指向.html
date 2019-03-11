@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  function foo() {
+    console.log(this.a)
+  }
+  var a = 1
+  foo() // 1 this --window
+
+  const obj = {
+    a: 2,
+    foo: foo
+  }
+  obj.foo() // 2 this --- obj 
+
+  //实例化对象的时候this就会永远绑定到C上
+  const c = new foo() // undefined  this---c  对于 new 的方式来说，this 被永远绑定在了 c 上面，不会被任何方式改变 this 所以在c上找不到a 
+  console.log(c)
+
+  /**############箭头函数的this指向################*/
+  //首先箭头函数其实是没有 this 的，箭头函数中的 this 只取决包裹箭头函数的第一个普通函数的 this
+  function jtFn() {
+    return () => {
+      return () => {
+        console.log('箭头函数this指向',this)
+      }
+    }
+  }
+  jtFn()()() // window  只取决包裹箭头函数的第一个普通函数的 this
+
+  // jtFn1函数的this是全局  如果全局没有s变量 那个就会是undefined
+  function jtFn1(){
+    var s = 'aaa';
+    return () => {
+      var s = 'bbb';
+      console.log(this.s) // 00000
+      return () => {
+        var s = 'ccc';
+        console.log(this.s)// 00000
+      }
+    }
+  }
+  var s = '00000'
+  jtFn1()()()
+ 
+</script>
+
+</html>

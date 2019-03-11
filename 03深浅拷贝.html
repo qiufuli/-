@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //正常赋值
+    let a = {
+      age: 1
+    }
+    let b = a;
+    a.age = 2;
+    console.log(b.age) //2
+    // 浅拷贝1
+    let aa = {
+      age: 1,
+      name: ['aaa', 'bbb']
+    }
+    let c = Object.assign({}, aa);
+    aa.age = 3;
+    aa.name.push('ccc')
+    console.log(c.age) // 1
+    console.log(c.name) // aaa,bbb,ccc 浅拷贝对于对象无效
+    // 浅拷贝2
+    let bb = {
+      age: 1
+    }
+    function qcopy(obj) {
+      var c = {};
+      for (var i in obj) {
+        c[i] = obj[i]
+      }
+      return c;
+    }
+    let cc = qcopy(bb);
+    bb.age = 4
+    console.log(cc.age) // 1
+
+    // 深拷贝
+    var os = {
+      aa:undefined,//JSON.parse(JSON.stringify(os)) 该方法会忽略掉函数和 undefined 。
+      name: '小花',
+      friend: ['小明', '小兰'],
+      fn:function(){
+        console.log(1)
+      }
+    }
+    function deepCopy(o, c) {
+      var c = c || {};
+      for (var i in o) {
+        if (typeof o[i] == 'object') {
+          c[i] = (o[i].constructor == Array) ? [] : {};
+          deepCopy(o[i], c[i]);
+        } else {
+          c[i] = o[i];
+        }
+      }
+      return c
+    }
+    var c1 = deepCopy(os);
+    var d1 = JSON.parse(JSON.stringify(os))
+    os.friend.push('xiaohei ')
+    c1.friend.push('true ')
+    console.log(os.friend)
+    console.log(c1)
+    console.log(d1)
+  </script>
+</body>
+
+</html>

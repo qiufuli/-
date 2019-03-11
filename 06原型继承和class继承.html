@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 原型继承
+    function Parent(value) {
+      this.value = value;
+    }
+    Parent.prototype.getValue = function () {
+      console.log(this.value)
+    }
+    var c = new Parent(1);
+    c.getValue(); //1
+
+    function Child(value) {
+      Parent.call(this, value);
+    }
+    Child.prototype = new Parent();
+    Child.prototype.constructor = Parent;
+    const b = new Child(2);
+    b.getValue(); // 2
+
+    // class继承
+    class Top{
+      constructor(value){
+        this.value = value;
+      }
+      getValue(){
+        console.log(this.value)
+      }
+    }
+    class Center extends Top{
+      constructor(value){
+        super(value)
+      }
+    }
+    const xx = new Center(444);
+    xx.getValue()
+  </script>
+</body>
+
+</html>
